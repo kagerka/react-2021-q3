@@ -12,7 +12,10 @@ function Cards() {
             key={card.id}
             image={card.image}
             title={card.title}
+            country={card.country}
             year={card.year}
+            like={card.like}
+            view={card.view}
           />
         );
       })}
