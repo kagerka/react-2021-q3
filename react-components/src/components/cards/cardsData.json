@@ -1,0 +1,16 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "image": "./images/01.jpg",
+      "title": "Ainbo: Spirit of the Amazon",
+      "year": 2021
+    },
+    {
+      "id": 2,
+      "image": "./images/02.jpg",
+      "title": "The Lion King",
+      "year": 1994
+    }
+  ]
+}
