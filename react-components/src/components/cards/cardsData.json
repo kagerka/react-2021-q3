@@ -1,0 +1,49 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "image": "./images/01.jpg",
+      "title": "Ainbo: Spirit of the Amazon",
+      "country": "Peru, Netherlands",
+      "year": 2021,
+      "like": 598,
+      "view": 1256
+    },
+    {
+      "id": 2,
+      "image": "./images/02.jpg",
+      "title": "The Lion King",
+      "country": "United States",
+      "year": 1994,
+      "like": 1655,
+      "view": 2257
+    },
+    {
+      "id": 3,
+      "image": "./images/03.jpg",
+      "title": "Big Hero 6",
+      "country": "United States, Japan",
+      "year": 2014,
+      "like": 1565,
+      "view": 1984
+    },
+    {
+      "id": 4,
+      "image": "./images/04.jpg",
+      "title": "The Good Dinosaur",
+      "country": "United States",
+      "year": 2015,
+      "like": 1245,
+      "view": 1852
+    },
+    {
+      "id": 5,
+      "image": "./images/05.jpg",
+      "title": "Aladdin",
+      "country": "United States",
+      "year": 1992,
+      "like": 1215,
+      "view": 1658
+    }
+  ]
+}
