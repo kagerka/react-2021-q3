@@ -1,0 +1,27 @@
+.card {
+  width: 250px;
+  min-height: 300px;
+
+  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
+  background: #eceff1;
+
+  & .image {
+    width: 250px;
+    height: 160px;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+      height: 100%
+    }
+  }
+
+  & .content {
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+
+  }
+}
