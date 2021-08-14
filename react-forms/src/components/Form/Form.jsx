@@ -101,9 +101,9 @@ const Form = ({ setFormValues }) => {
             value={country}
             onChange={(event) => setCountry(event.target.value)}
           >
-            <option value="">Russia</option>
-            <option value="">Germany</option>
-            <option value="">Belarus</option>
+            <option value="Russia">Russia</option>
+            <option value="Germany">Germany</option>
+            <option value="Belarus">Belarus</option>
           </select>
         </label>
 
