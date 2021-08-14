@@ -103,13 +103,6 @@
         "ignoreArrayIndexes": true
       }
     ],
-    "max-lines-per-function": [
-      "error",
-      {
-        "max": 40,
-        "skipBlankLines": true
-      }
-    ],
     "prettier/prettier": [
       "error",
       {
