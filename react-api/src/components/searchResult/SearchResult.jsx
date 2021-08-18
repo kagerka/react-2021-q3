@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import styles from './SearchResult.module.scss';
 import { ONE, ONE_THOUSAND, TEN, ZERO } from '../../constants/constants';
 import instance from '../../services/api';
+import Loading from '../loading/Loading';
 
 function SearchResult({
   photoList,
@@ -17,6 +18,7 @@ function SearchResult({
   setPerPage,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     const { value } = e.target;
     setPage(value);
@@ -90,7 +92,7 @@ function SearchResult({
             <input
               type="text"
               onKeyPress={validateInput}
-              className={styles.pagination_number}
+              className={`${styles.pagination_number} ${styles.pagination_number_input}`}
               value={page}
               onChange={handleChange}
             />
@@ -105,7 +107,7 @@ function SearchResult({
             <input
               type="text"
               onKeyPress={validateInput}
-              className={styles.pagination_number}
+              className={`${styles.pagination_number} ${styles.pagination_number_input}`}
               value={perPage}
               onChange={(e) => {
                 setPerPage(e.target.value);
@@ -152,6 +154,7 @@ function SearchResult({
           },
         )}
       </div>
+      {isLoading ? <Loading /> : <div></div>}
     </div>
   );
 }
