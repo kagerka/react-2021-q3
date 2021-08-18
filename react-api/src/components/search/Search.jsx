@@ -3,6 +3,8 @@ import styles from './Search.module.scss';
 import instance from '../../services/api';
 import SearchResult from '../searchResult/SearchResult';
 import { ZERO } from '../../constants/constants';
+import Loading from '../loading/Loading';
+import Error from '../error/Error';
 
 function Search() {
   const [searchValue, setSearchValue] = useState('');
@@ -12,6 +14,8 @@ function Search() {
   const [sortBy, setSortBy] = useState('date-posted-desc');
   const [page, setPage] = useState('0');
   const [perPage, setPerPage] = useState('10');
+  const [beforeSearch, setBeforeSearch] = useState(true);
+
   const handleChange = (e) => {
     const { value } = e.target;
     setSearchValue(value);
@@ -28,7 +32,7 @@ function Search() {
     setIsLoading(true);
     try {
       const response = await instance.get(
-        `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${page}&per_page=${perPage}`,
+        `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=1&per_page=10`,
       );
       setPhotoList(response.data.photos?.photo);
       setPagesTotal(response.data.photos?.pages);
@@ -36,8 +40,10 @@ function Search() {
       console.error(err);
     } finally {
       setIsLoading(false);
+      setBeforeSearch(false);
     }
   };
+
   return (
     <div>
       <div className={styles.header}>
@@ -94,8 +100,9 @@ function Search() {
           setPerPage={setPerPage}
         />
       ) : (
-        <div></div>
+        <Error searchValue={searchValue} beforeSearch={beforeSearch} />
       )}
+      {isLoading ? <Loading /> : <div></div>}
     </div>
   );
 }
