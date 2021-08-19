@@ -90,7 +90,7 @@ function SearchResult({
               &#60;
             </div>
             <input
-              type="text"
+              type='text'
               onKeyPress={validateInput}
               className={`${styles.pagination_number} ${styles.pagination_number_input}`}
               value={page}
@@ -105,7 +105,7 @@ function SearchResult({
           <div className={styles.perPageNum_wrapper}>
             Per page:
             <input
-              type="text"
+              type='text'
               onKeyPress={validateInput}
               className={`${styles.pagination_number} ${styles.pagination_number_input}`}
               value={perPage}
@@ -114,50 +114,43 @@ function SearchResult({
               }}
             />
           </div>
-          <button type="submit" disabled={isLoading} className={styles.submit}>
+          <button type='submit' disabled={isLoading} className={styles.submit}>
             {isLoading ? 'Loading...' : 'Apply'}
           </button>
         </form>
       </div>
       <div className={styles.search_result_wrapper}>
-        {photoList?.map(
-          ({ title, ownername, dateupload, url_s, views }, index) => {
-            return (
-              <div key={index} className={styles.photoCard}>
-                <div className={styles.image}>
-                  <img src={url_s} alt={title} />
+        {photoList?.map(({ title, ownername, dateupload, url_s, views }, index) => {
+          return (
+            <div key={index} className={styles.photoCard}>
+              <div className={styles.image}>
+                <img src={url_s} alt={title} />
+              </div>
+              <div className={styles.content}>
+                <div className={styles.title} title={title}>
+                  <b>Title: </b> {title}
                 </div>
-                <div className={styles.content}>
-                  <div className={styles.title} title={title}>
-                    <b>Title: </b> {title}
-                  </div>
-                  <div className={styles.title} title={ownername}>
-                    <b>Author: </b> {ownername.toLowerCase()}
-                  </div>
-                  <div>
-                    <b>Date: </b>
-                    {new Date(dateupload * ONE_THOUSAND)
-                      .toISOString()
-                      .slice(ZERO, TEN)}
-                  </div>
-                  <div className={styles.views_wrapper}>
-                    <img
-                      src="./icons/view.svg"
-                      alt=""
-                      className={styles.views}
-                    />
-                    {views}
-                  </div>
+                <div className={styles.title} title={ownername}>
+                  <b>Author: </b> {ownername.toLowerCase()}
+                </div>
+                <div>
+                  <b>Date: </b>
+                  {new Date(dateupload * ONE_THOUSAND).toISOString().slice(ZERO, TEN)}
+                </div>
+                <div className={styles.views_wrapper}>
+                  <img src='/icons/view.svg' alt='' className={styles.views} />
+                  {views}
                 </div>
               </div>
-            );
-          },
-        )}
+            </div>
+          );
+        })}
       </div>
       {isLoading ? <Loading /> : <div></div>}
     </div>
   );
 }
+
 SearchResult.propTypes = {
   photoList: PropTypes.array,
   searchValue: PropTypes.string,
