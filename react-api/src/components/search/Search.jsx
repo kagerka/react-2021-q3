@@ -4,7 +4,7 @@ import instance from '../../services/api';
 import SearchResult from '../searchResult/SearchResult';
 import { ZERO } from '../../constants/constants';
 import Loading from '../loading/Loading';
-import Error from '../error/Error';
+import NotFound from '../error/NotFound';
 
 function Search() {
   const [searchValue, setSearchValue] = useState('');
@@ -49,42 +49,33 @@ function Search() {
       <div className={styles.header}>
         <form onSubmit={handleSubmit} className={styles.search_wrapper}>
           <input
-            type="text"
-            placeholder="Type text here..."
+            type='text'
+            placeholder='Type text here...'
             className={styles.search}
             style={{
-              backgroundImage: 'url(./icons/loupe.svg)',
+              backgroundImage: 'url(/icons/loupe.svg)',
             }}
             required={true}
-            id="search"
+            id='search'
             value={searchValue}
             onChange={handleChange}
             disabled={isLoading}
           />
           <div className={styles.filters_wrapper}>
             <div className={styles.filter_wrapper}>
-              <select
-                onChange={handleSort}
-                className={styles.filter}
-                defaultValue="date-posted-desc"
-              >
-                <option value="date-posted-desc">Date Descending</option>
-                <option value="date-posted-asc">Date Ascending</option>
-                <option value="relevance">Relevance</option>
-                <option value="interestingness-asc">
-                  Interestingness Ascending
-                </option>
-                <option value="interestingness-desc">
-                  Interestingness Descending
-                </option>
+              <select onChange={handleSort} className={styles.filter} defaultValue='date-posted-desc'>
+                <option value='date-posted-desc'>Date Descending</option>
+                <option value='date-posted-asc'>Date Ascending</option>
+                <option value='relevance'>Relevance</option>
+                <option value='interestingness-asc'>Interestingness Ascending</option>
+                <option value='interestingness-desc'>Interestingness Descending</option>
               </select>
             </div>
           </div>
-          <button type="submit" disabled={isLoading} className={styles.submit}>
+          <button type='submit' disabled={isLoading} className={styles.submit}>
             {isLoading ? 'Loading...' : 'Search'}
           </button>
         </form>
-        <div className={styles.title}>React API</div>
       </div>
       {pagesTotal !== ZERO ? (
         <SearchResult
@@ -100,7 +91,7 @@ function Search() {
           setPerPage={setPerPage}
         />
       ) : (
-        <Error searchValue={searchValue} beforeSearch={beforeSearch} />
+        <NotFound searchValue={searchValue} beforeSearch={beforeSearch} />
       )}
       {isLoading ? <Loading /> : <div></div>}
     </div>
