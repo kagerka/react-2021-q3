@@ -15,11 +15,11 @@ const devServer = (isDev) =>
           hot: true,
           port: 8080,
           contentBase: path.join(__dirname, 'public'),
+          historyApiFallback: true,
         },
       };
 
-const esLintPlugin = (isDev) =>
-  isDev ? [] : [new ESLintPlugin({ extensions: ['js', 'jsx'] })];
+const esLintPlugin = (isDev) => (isDev ? [] : [new ESLintPlugin({ extensions: ['js', 'jsx'] })]);
 
 module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
@@ -31,6 +31,7 @@ module.exports = ({ development }) => ({
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[name][ext]',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -57,28 +58,22 @@ module.exports = ({ development }) => ({
       },
       {
         test: /\.css$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
-        ],
+        use: [MiniCssExtractPlugin.loader, { loader: 'css-loader', options: { sourceMap: true } }],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', { loader: 'sass-loader', options: { sourceMap: true } }],
       },
     ],
   },
+
   plugins: [
     ...esLintPlugin(),
     // ...esLintPlugin(development),
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     new HtmlWebpackPlugin({
       favicon: 'public/favicon.ico',
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new CopyPlugin({
       patterns: [{ from: 'public' }],
@@ -105,7 +100,7 @@ module.exports = ({ development }) => ({
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
+    maxAssetSize: 512000,
   },
   ...devServer(development),
 });
