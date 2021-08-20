@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSpring, animated } from 'react-spring';
 import styles from './Search.module.scss';
 import instance from '../../services/api';
 import SearchResult from '../searchResult/SearchResult';
@@ -43,9 +44,12 @@ function Search() {
       setBeforeSearch(false);
     }
   };
-
+  const props = useSpring({
+    to: { opacity: 1, transform: 'translate3d(0,0,0)' },
+    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
+  });
   return (
-    <div>
+    <animated.div style={props} className={styles.header_wrapper}>
       <div className={styles.header}>
         <form onSubmit={handleSubmit} className={styles.search_wrapper}>
           <input
@@ -94,7 +98,7 @@ function Search() {
         <NotFound searchValue={searchValue} beforeSearch={beforeSearch} />
       )}
       {isLoading ? <Loading /> : <div></div>}
-    </div>
+    </animated.div>
   );
 }
 
