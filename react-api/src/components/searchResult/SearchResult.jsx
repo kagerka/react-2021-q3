@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { useSpring, animated } from 'react-spring';
 import styles from './SearchResult.module.scss';
 import { ONE, ONE_THOUSAND, TEN, ZERO } from '../../constants/constants';
 import instance from '../../services/api';
@@ -38,6 +40,7 @@ function SearchResult({
       setIsLoading(false);
     }
   };
+
   const prevPage = async () => {
     if (+page > ONE) {
       setIsLoading(true);
@@ -120,29 +123,41 @@ function SearchResult({
         </form>
       </div>
       <div className={styles.search_result_wrapper}>
-        {photoList?.map(({ title, ownername, dateupload, url_s, views }, index) => {
+        {photoList?.map(({ title, ownername, dateupload, url_s, url_o, views, id }, index) => {
+          const props = useSpring({
+            to: { opacity: 1, scale: '1' },
+            from: { opacity: 0, scale: '0' },
+          });
           return (
-            <div key={index} className={styles.photoCard}>
-              <div className={styles.image}>
-                <img src={url_s} alt={title} />
-              </div>
-              <div className={styles.content}>
-                <div className={styles.title} title={title}>
-                  <b>Title: </b> {title}
+            <animated.div style={props} key={index} className={styles.photoCard}>
+              <Link
+                to={{
+                  pathname: `/details/${id}`,
+                  state: { url_o },
+                }}
+                className={styles.photoCard_link}
+              >
+                <div className={styles.image}>
+                  <img src={url_s} alt={title} />
                 </div>
-                <div className={styles.title} title={ownername}>
-                  <b>Author: </b> {ownername.toLowerCase()}
+                <div className={styles.content}>
+                  <div className={styles.title} title={title}>
+                    <b>Title: </b> {title}
+                  </div>
+                  <div className={styles.title} title={ownername}>
+                    <b>Author: </b> {ownername.toLowerCase()}
+                  </div>
+                  <div>
+                    <b>Date: </b>
+                    {new Date(dateupload * ONE_THOUSAND).toISOString().slice(ZERO, TEN)}
+                  </div>
+                  <div className={styles.views_wrapper}>
+                    <img src='/icons/view.svg' alt='' className={styles.views} />
+                    {views}
+                  </div>
                 </div>
-                <div>
-                  <b>Date: </b>
-                  {new Date(dateupload * ONE_THOUSAND).toISOString().slice(ZERO, TEN)}
-                </div>
-                <div className={styles.views_wrapper}>
-                  <img src='/icons/view.svg' alt='' className={styles.views} />
-                  {views}
-                </div>
-              </div>
-            </div>
+              </Link>
+            </animated.div>
           );
         })}
       </div>
