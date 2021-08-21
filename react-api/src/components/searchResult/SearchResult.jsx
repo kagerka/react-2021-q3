@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useSpring, animated } from 'react-spring';
 import styles from './SearchResult.module.scss';
 import { ONE, ONE_THOUSAND, TEN, ZERO } from '../../constants/constants';
 import instance from '../../services/api';
@@ -123,17 +122,12 @@ function SearchResult({
         </form>
       </div>
       <div className={styles.search_result_wrapper}>
-        {photoList?.map(({ title, ownername, dateupload, url_s, url_o, views, id }, index) => {
-          const props = useSpring({
-            to: { opacity: 1, scale: '1' },
-            from: { opacity: 0, scale: '0' },
-          });
+        {photoList?.map(({ title, ownername, dateupload, url_s, views, id }, index) => {
           return (
-            <animated.div style={props} key={index} className={styles.photoCard}>
+            <div key={index} className={styles.photoCard}>
               <Link
                 to={{
                   pathname: `/details/${id}`,
-                  state: { url_o },
                 }}
                 className={styles.photoCard_link}
               >
@@ -157,7 +151,7 @@ function SearchResult({
                   </div>
                 </div>
               </Link>
-            </animated.div>
+            </div>
           );
         })}
       </div>
