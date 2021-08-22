@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './SearchResult.module.scss';
-import { ONE, ONE_THOUSAND, TEN, ZERO } from '../../constants/constants';
-import instance from '../../services/api';
-import Loading from '../loading/Loading';
+import { ONE_THOUSAND, TEN, ZERO } from '../../constants/constants';
+import SearchOptions from './searchOptions/SearchOptions';
 
 function SearchResult({
   photoList,
@@ -18,109 +17,19 @@ function SearchResult({
   perPage,
   setPerPage,
 }) {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setPage(value);
-  };
-  const handlePage = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await instance.get(
-        `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${page}&per_page=${perPage}`,
-      );
-      setPhotoList(response.data.photos?.photo);
-      setPagesTotal(response.data.photos?.pages);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const prevPage = async () => {
-    if (+page > ONE) {
-      setIsLoading(true);
-      try {
-        const response = await instance.get(
-          `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${
-            +page - ONE
-          }&per_page=${perPage}`,
-        );
-        setPhotoList(response.data.photos?.photo);
-        setPagesTotal(response.data.photos?.pages);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setPage((+page - ONE).toString());
-        setIsLoading(false);
-      }
-    }
-  };
-  const nextPage = async () => {
-    if (+page < pagesTotal) {
-      setIsLoading(true);
-      try {
-        const response = await instance.get(
-          `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${
-            +page + ONE
-          }&per_page=${perPage}`,
-        );
-        setPhotoList(response.data.photos?.photo);
-        setPagesTotal(response.data.photos?.pages);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setPage((+page + ONE).toString());
-        setIsLoading(false);
-      }
-    }
-  };
-  const validateInput = (event) => {
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
-    }
-  };
   return (
     <div>
-      <div className={styles.options_wrapper}>
-        <form className={styles.pagination_wrapper} onSubmit={handlePage}>
-          <div className={styles.pageNum_wrapper}>
-            <div className={styles.pagination_arrow} onClick={prevPage}>
-              &#60;
-            </div>
-            <input
-              type='text'
-              onKeyPress={validateInput}
-              className={`${styles.pagination_number} ${styles.pagination_number_input}`}
-              value={page}
-              onChange={handleChange}
-            />
-            of
-            <div className={styles.pagination_number}>{pagesTotal}</div>
-            <div className={styles.pagination_arrow} onClick={nextPage}>
-              &#62;
-            </div>
-          </div>
-          <div className={styles.perPageNum_wrapper}>
-            Per page:
-            <input
-              type='text'
-              onKeyPress={validateInput}
-              className={`${styles.pagination_number} ${styles.pagination_number_input}`}
-              value={perPage}
-              onChange={(e) => {
-                setPerPage(e.target.value);
-              }}
-            />
-          </div>
-          <button type='submit' disabled={isLoading} className={styles.submit}>
-            {isLoading ? 'Loading...' : 'Apply'}
-          </button>
-        </form>
-      </div>
+      <SearchOptions
+        searchValue={searchValue}
+        setPhotoList={setPhotoList}
+        pagesTotal={pagesTotal}
+        setPagesTotal={setPagesTotal}
+        sortBy={sortBy}
+        page={page}
+        setPage={setPage}
+        perPage={perPage}
+        setPerPage={setPerPage}
+      />
       <div className={styles.search_result_wrapper}>
         {photoList?.map(({ title, ownername, dateupload, url_s, views, id }, index) => {
           return (
@@ -155,7 +64,6 @@ function SearchResult({
           );
         })}
       </div>
-      {isLoading ? <Loading /> : <div></div>}
     </div>
   );
 }

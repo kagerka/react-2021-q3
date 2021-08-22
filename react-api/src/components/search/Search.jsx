@@ -6,6 +6,7 @@ import SearchResult from '../searchResult/SearchResult';
 import { ZERO } from '../../constants/constants';
 import Loading from '../loading/Loading';
 import NotFound from '../error/NotFound';
+import SearchInfo from './searchInfo/SearchInfo';
 
 function Search() {
   const [searchValue, setSearchValue] = useState('');
@@ -81,7 +82,7 @@ function Search() {
           </button>
         </form>
       </div>
-      {pagesTotal !== ZERO ? (
+      {pagesTotal !== ZERO && (
         <SearchResult
           photoList={photoList}
           searchValue={searchValue}
@@ -94,20 +95,10 @@ function Search() {
           perPage={perPage}
           setPerPage={setPerPage}
         />
-      ) : (
-        <div>
-          <NotFound searchValue={searchValue} beforeSearch={beforeSearch} />
-          <div className={styles.search_info}>
-            <img src='./icons/bot.svg' alt='' />
-            <p>
-              Type the text that you are looking for in the search field and click button &quot;Search&quot;. It will
-              automatically show you results of the images.
-            </p>
-          </div>
-        </div>
       )}
-
-      {isLoading ? <Loading /> : ''}
+      {pagesTotal === ZERO && beforeSearch && <SearchInfo />}
+      {pagesTotal === ZERO && searchValue !== '' && !beforeSearch && <NotFound />}
+      {isLoading ? <Loading /> : null}
     </animated.div>
   );
 }
