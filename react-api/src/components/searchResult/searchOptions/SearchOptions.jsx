@@ -1,92 +1,48 @@
-import React, { useState } from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './SearchOptions.module.scss';
-import instance from '../../../services/api';
-import { ONE } from '../../../constants/constants';
 import Loading from '../../loading/Loading';
+import { pageAction } from '../../../store/reducers/pageReducer';
+import { perPageAction } from '../../../store/reducers/perPageReducer';
+import { nextPage, prevPage } from '../../../store/api/flipPages';
+import { handlePage } from '../../../store/api/handlePage';
 
-function SearchOptions({
-  searchValue,
-  setPhotoList,
-  pagesTotal,
-  setPagesTotal,
-  sortBy,
-  page,
-  setPage,
-  perPage,
-  setPerPage,
-}) {
-  const [isLoading, setIsLoading] = useState(false);
+function SearchOptions() {
+  const dispatch = useDispatch();
+
+  const searchValues = useSelector((state) => state.searchValue.searchValue);
+  const pagesTotal = useSelector((state) => state.pagesTotal.pagesTotal);
+  const sortByValues = useSelector((state) => state.sortByValue.sortBy);
+  const page = useSelector((state) => state.page.page);
+  const perPage = useSelector((state) => state.perPage.perPage);
+  const isLoading = useSelector((state) => state.isLoading.isLoading);
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setPage(value);
-  };
-  const handlePage = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await instance.get(
-        `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${page}&per_page=${perPage}`,
-      );
-      setPhotoList(response.data.photos?.photo);
-      setPagesTotal(response.data.photos?.pages);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(pageAction(value));
   };
 
-  const prevPage = async () => {
-    if (+page > ONE) {
-      setIsLoading(true);
-      try {
-        const response = await instance.get(
-          `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${
-            +page - ONE
-          }&per_page=${perPage}`,
-        );
-        setPhotoList(response.data.photos?.photo);
-        setPagesTotal(response.data.photos?.pages);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setPage((+page - ONE).toString());
-        setIsLoading(false);
-      }
-    }
-  };
-  const nextPage = async () => {
-    if (+page < pagesTotal) {
-      setIsLoading(true);
-      try {
-        const response = await instance.get(
-          `/rest/?method=flickr.photos.search&text=${searchValue}&sort=${sortBy}&page=${
-            +page + ONE
-          }&per_page=${perPage}`,
-        );
-        setPhotoList(response.data.photos?.photo);
-        setPagesTotal(response.data.photos?.pages);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setPage((+page + ONE).toString());
-        setIsLoading(false);
-      }
-    }
-  };
   const validateInput = (event) => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
     }
   };
+
   return (
     <div>
       <div className={styles.options_wrapper}>
-        <form className={styles.pagination_wrapper} onSubmit={handlePage}>
+        <form
+          className={styles.pagination_wrapper}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handlePage({ dispatch, searchValues, sortByValues, page, perPage });
+          }}
+        >
           <div className={styles.pageNum_wrapper}>
-            <div className={styles.pagination_arrow} onClick={prevPage}>
+            <div
+              className={styles.pagination_arrow}
+              onClick={() => prevPage({ dispatch, page, searchValues, sortByValues, perPage })}
+            >
               &#60;
             </div>
             <input
@@ -98,7 +54,10 @@ function SearchOptions({
             />
             of
             <div className={styles.pagination_number}>{pagesTotal}</div>
-            <div className={styles.pagination_arrow} onClick={nextPage}>
+            <div
+              className={styles.pagination_arrow}
+              onClick={() => nextPage({ dispatch, page, searchValues, sortByValues, perPage, pagesTotal })}
+            >
               &#62;
             </div>
           </div>
@@ -110,7 +69,7 @@ function SearchOptions({
               className={`${styles.pagination_number} ${styles.pagination_number_input}`}
               value={perPage}
               onChange={(e) => {
-                setPerPage(e.target.value);
+                dispatch(perPageAction(e.target.value));
               }}
             />
           </div>
@@ -124,15 +83,4 @@ function SearchOptions({
   );
 }
 
-SearchOptions.propTypes = {
-  searchValue: PropTypes.string,
-  setPhotoList: PropTypes.func,
-  pagesTotal: PropTypes.number,
-  setPagesTotal: PropTypes.func,
-  sortBy: PropTypes.string,
-  setPage: PropTypes.func,
-  page: PropTypes.string,
-  perPage: PropTypes.string,
-  setPerPage: PropTypes.func,
-};
 export default SearchOptions;
