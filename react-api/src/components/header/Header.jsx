@@ -13,7 +13,7 @@ const Header = () => {
           About
         </NavLink>
       </nav>
-      <div className={styles.title}>React Redux</div>
+      <div className={styles.title}>React Testing</div>
     </header>
   );
 };
