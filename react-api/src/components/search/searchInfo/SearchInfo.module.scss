@@ -1,0 +1,13 @@
+.search_info {
+  font-size: 30px;
+  color: #b0bec5;
+  font-weight: 100;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 60px 30px;
+
+  & img {
+    width: 200px;
+  }
+}

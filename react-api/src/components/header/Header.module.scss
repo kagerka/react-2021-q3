@@ -1,0 +1,35 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background: #37474f;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  justify-content: space-between;
+  border-bottom: 1px solid #90a4ae;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 100;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  column-gap: 20px;
+}
+
+.link {
+  font-size: 20px;
+  color: white;
+  font-weight: 300;
+  text-decoration: none;
+  padding: 4px 10px;
+}
+
+.active_link {
+  outline: 1px dashed white;
+}
