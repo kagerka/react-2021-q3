@@ -11,7 +11,7 @@ const NotFound = () => {
     <animated.div style={props}>
       <div className={styles.error_wrapper}>
         <div className={styles.error_message}>
-          <img src='/icons/404.svg' alt='' />
+          <img data-testid='404' src='/icons/404.svg' alt='' />
           <p>An error occurred, please try again later.</p>
         </div>
       </div>
