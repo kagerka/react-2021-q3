@@ -31,7 +31,7 @@ module.exports = ({ development }) => ({
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     assetModuleFilename: 'assets/[name][ext]',
-    publicPath: '/',
+    publicPath: '/react-deploy/react-routing/',
   },
   module: {
     rules: [
