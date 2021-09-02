@@ -9,7 +9,7 @@ const About = () => {
   });
   return (
     <animated.div style={props} className={styles.about_wrapper}>
-      <img src='/images/about.svg' alt='' className={styles.main_image} />
+      <img data-testid='about' src='/images/about.svg' alt='' className={styles.main_image} />
     </animated.div>
   );
 };
