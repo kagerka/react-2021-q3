@@ -1,0 +1,133 @@
+.form_wrapper {
+  margin: 30px auto;
+  width: 500px;
+  border-radius: 10px;
+  background-color: #455a64;
+  padding: 30px;
+  color: #ffffff;
+  font-family: Roboto, sans-serif;
+}
+
+.form {
+
+}
+.field_name {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: 300;
+}
+.item input {
+  width: 100%;
+  padding: 8px;
+  color: #455a64;
+  outline: none;
+  border: none;
+  background-color: #cfd8dc;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  &:focus {
+    background-color: #ffffff;
+  }
+}
+
+.button {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+.button input {
+  border: 2px solid #ffffff;
+  padding: 8px;
+  width: 150px;
+  background-color: #455a64;
+  outline: none;
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  &:hover {
+    background-color: #607d8b;
+    cursor: pointer;
+  }
+}
+.select {
+  width: 100%;
+  background-color: #cfd8dc;
+  &:focus {
+    background-color: #ffffff;
+  }
+  padding: 8px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  color: #455a64;
+  outline: none;
+  border: none;
+}
+.agree {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+.agree input {
+  margin-left: 0;
+  padding: 0;
+  width: 26px;
+  height: 26px;
+}
+.agree .field_name {
+  display: inline-block;
+  width: auto;
+  margin: 0 0 0 10px;
+  height: 100%;
+  vertical-align: top;
+  padding: 0;
+}
+.errors {
+  color: #fbabbd;
+  display: inline-block;
+  margin-left: 10px;
+}
+.switch_field {
+  display: flex;
+  margin-bottom: 36px;
+  overflow: hidden;
+}
+
+.switch_field input {
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.switch_field label {
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.switch_field label:hover {
+  cursor: pointer;
+}
+
+.switch_field input:checked + label {
+  background-color: #a5dc86;
+  box-shadow: none;
+}
+
+.switch_field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.switch_field label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
