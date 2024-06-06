@@ -1,0 +1,125 @@
+.header {
+  width: 100%;
+
+  background: #455a64;
+  padding: 20px 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search_wrapper {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search {
+  width: 300px;
+  border: 4px solid #90a4ae;
+  border-radius: 30px;
+  padding: 4px 4px 4px 60px;
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: #6a6a6a;
+  background-repeat: no-repeat;
+  background-position: 10px;
+  background-size: 26px;
+  background-color: #eceff1;
+
+  &::placeholder {
+    color: #90a4ae;
+    font-weight: 100;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: #ffffff;
+  }
+}
+
+.filters_wrapper {
+  display: flex;
+  height: 45px;
+}
+
+.filter_wrapper {
+  height: 40px;
+
+  .filter {
+    cursor: pointer;
+    outline: none;
+    width: 400px;
+    border: 4px solid #90a4ae;
+    border-radius: 30px;
+    padding: 4px 20px;
+    background-color: #eceff1;
+    font-family: Roboto, serif;
+    font-size: 24px;
+    color: #90a4ae;
+    font-weight: 100;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 30px) 16px, calc(100% - 25px) 16px, calc(100% - 2.5em) 6px;
+    background-size: 5px 5px, 5px 5px, 1px 26px;
+    background-repeat: no-repeat;
+    appearance: none;
+
+    .filter:focus {
+      background-image: linear-gradient(45deg, green 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, green 50%), linear-gradient(to right, #ccc, #ccc);
+      background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, calc(100% - 2.5em) 0.5em;
+      background-size: 5px 5px, 5px 5px, 1px 1.5em;
+      background-repeat: no-repeat;
+      border-color: green;
+      outline: 0;
+    }
+
+    .select_disabled {
+      color: #90a4ae;
+      font-weight: 100;
+    }
+
+    &:focus {
+      outline: none;
+      background-color: #ffffff;
+    }
+  }
+}
+
+.submit {
+  width: 180px;
+  border-radius: 30px;
+  padding: 8px;
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: #ffffff;
+  background-color: #90a4ae;
+  border: none;
+  transition: 0.2s background-color ease-in;
+
+  &:hover {
+    outline: none;
+    border: none;
+    background-color: #ffffff;
+    color: #90a4ae;
+    cursor: pointer;
+  }
+}
+
+.search_info {
+  font-size: 30px;
+  color: #b0bec5;
+  font-weight: 100;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 60px 30px;
+
+  & img {
+    width: 200px;
+  }
+}
