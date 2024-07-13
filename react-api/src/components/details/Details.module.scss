@@ -1,0 +1,30 @@
+.card_wrapper {
+  width: 100%;
+  display: flex;
+  padding: 30px 80px;
+}
+
+.content_wrapper {
+  padding: 0 30px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.titles {
+  font-weight: 300;
+  display: inline-block;
+  background-color: #cfd8dc;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.at {
+  margin: 0 8px;
+}
+
+.details_img {
+  width: 500px;
+}
